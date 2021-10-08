@@ -34,6 +34,14 @@ UI.prototype.clearFields = function () {
   document.getElementById("isbn").value = "";
 };
 
+//delete book
+
+UI.prototype.deleteBook = function (target) {
+  if (target.className === "delete") {
+    target.parentElement.parentElement.remove();
+  }
+};
+
 //show alert
 
 UI.prototype.showAlert = function (message, className) {
@@ -65,7 +73,7 @@ UI.prototype.showAlert = function (message, className) {
   }, 3000);
 };
 
-//Event listeners
+//Event listener for add book
 
 document.getElementById("book-form").addEventListener("submit", function (e) {
   // get form values
@@ -96,5 +104,16 @@ document.getElementById("book-form").addEventListener("submit", function (e) {
     ui.clearFields();
   }
 
+  e.preventDefault();
+});
+
+//Event listener for delete
+
+document.getElementById("book-list").addEventListener("click", function (e) {
+  const ui = new UI();
+  ui.deleteBook(e.target);
+  // show alert
+
+  ui.showAlert("Book Removed", "success");
   e.preventDefault();
 });
